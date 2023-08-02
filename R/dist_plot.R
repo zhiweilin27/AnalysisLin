@@ -7,7 +7,7 @@
 #' @return a list of plots
 #' @export
 #'
-#' @examples
+#' @examples numeric_plot(data(mtcars),prob=T,dens=T)
 numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
@@ -41,13 +41,15 @@ numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
 #' @param bar_legend_size an argument(default is 0.5) that determines size of the legend
 #' @param bar_legend_position an argument(dafult is bottom) that determines the position of the legend
 #' @param n_col an argument that determine how many plot being put on the same rows
+#' @param bar_width width of bar plot
+#' @param bar_height height of bar plot
 #' @return a list of pie charts
 #' @export
 #'
-#' @examples
-categoric_plot <- function(data, pie=TRUE, pie_legend = TRUE, pie_legend_size = 0.5,pie_legend_position='bottom',pie_inset = c(0, -0.15),
-                           bar=TRUE, bar_legend=TRUE, bar_legend_size=0.5,bar_legend_positon = 'bottom',bar_inset=c(0, -0.4),
-                           n_col=1) {
+#' @examples categoric_plot(data(mtcars))
+categoric_plot <- function(data, pie=TRUE, pie_legend=TRUE, pie_legend_size=0.5, pie_legend_position='bottom', pie_inset=c(0, -0.15),
+                           bar=TRUE, bar_legend=TRUE, bar_legend_size=0.5, bar_legend_position='bottom', bar_inset=c(0, -0.4),
+                           n_col=1, bar_width = 0.8, bar_height = NULL) {
   categorical <- names(Filter(function(x) is.factor(x) || is.character(x), data))
   if (length(categorical) == 0) stop("There is no categorical variable in the dataset")
 
@@ -69,13 +71,18 @@ categoric_plot <- function(data, pie=TRUE, pie_legend = TRUE, pie_legend_size = 
         legend(pie_legend_position, legend = labels, cex = pie_legend_size, horiz=T, fill = colors, xpd = TRUE, inset = pie_inset)
       }
     }
+
     if (bar){
       bar_colors <- rainbow(length(table_data))
-      barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors)
+      if (is.null(bar_height)) {
+        barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors, width = bar_width)
+      } else {
+        barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors, width = bar_width, height = bar_height)
+      }
 
       # Add legend to the bar plot
       if (bar_legend) {
-        legend(bar_legend_positon, legend = names(table_data), horiz=T,fill = bar_colors, xpd = TRUE, inset = bar_inset)
+        legend(bar_legend_position, legend = names(table_data), horiz=T,fill = bar_colors, xpd = TRUE, inset = bar_inset)
       }
     }
   }

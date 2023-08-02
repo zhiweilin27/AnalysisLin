@@ -1,13 +1,12 @@
 #' @title Missing Value Imputation
 #'
-#' @param data
-#' @param method
-#' @param k
+#' @param data input data
+#' @param method method of handling missing values: mean, median, mode, locf,knn.
+#' @param k argument used in knn method. k is value of number of neighbors will be checked. Default is Null
 #'
-#' @return
 #' @export
 #'
-#' @examples
+#' @examples impute_missing(data(mtcars), method='mean')
 impute_missing <- function(data, method = "mean", k = NULL) {
   imputed_data <- data
   if (is.null(k)) {
@@ -28,13 +27,16 @@ impute_missing <- function(data, method = "mean", k = NULL) {
     stop("Invalid imputation method. Supported methods are: mean, median, mode, locf, knn, regression, multiple.")
   }
 
-  return(imputed_data)
+  return(as.data.frame(imputed_data))
 }
 
 
 # Custom LOCF (Last Observation Carried Forward) imputation
 impute_locf <- function(x) {
-  require(zoo)
+  if(!require(zoo)){
+    install.packages('zoo')
+    library(zoo)
+  }
   imputed_values <- na.locf(x, na.rm = FALSE)
   return(imputed_values)
 }
@@ -48,8 +50,25 @@ impute_mode <- function(x) {
 
 # Custom kNN imputation
 impute_knn <- function(data, k) {
-  require(impute)
-  imputed_values <- impute.knn(as.matrix(data), k = k)$data
-  return(imputed_values)
+  if (!require(caret)) {
+    install.packages('caret')
+    library(caret)
+  }
+  if (!require(RANN)) {
+    install.packages('RANN')
+    library(RANN)
+  }
+  # Perform KNN imputation
+  imputed_values <- preProcess(data, method = 'knnImpute', k = k)
+  imputed_data <- predict(imputed_values, data)
+  
+  # Post-process the imputed data using preProcess information
+  procNames <- data.frame(col = names(imputed_values$mean), mean = imputed_values$mean, sd = imputed_values$std)
+  for (i in procNames$col) {
+    imputed_data[i] <- imputed_data[i] * imputed_values$std[i] + imputed_values$mean[i]
+  }
+  
+  return(imputed_data)
 }
+
 

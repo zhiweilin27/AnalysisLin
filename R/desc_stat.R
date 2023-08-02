@@ -34,7 +34,7 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     stop("Input data is empty.")
   }
 
-  if (!requireNamespace("moments", quietly = TRUE)) {
+  if (!require("moments")){
     install.packages("moments")
     library(moments)
   }
@@ -60,22 +60,22 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     desc$type <- sapply(data, function(x) class(x))
   }
   if (min) {
-    desc$min <- sapply(data, function(x) ifelse(is.numeric(x), min(x), NA))
+    desc$min <- sapply(data, function(x) ifelse(is.numeric(x), min(x,na.rm=T), NA))
   }
   if (p25) {
-    desc$p25 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.25), NA))
+    desc$p25 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.25,na.rm=T), NA))
   }
   if (mean) {
-    desc$mean <- sapply(data, function(x) ifelse(is.numeric(x), mean(x), NA))
+    desc$mean <- sapply(data, function(x) ifelse(is.numeric(x), mean(x,na.rm=T), NA))
   }
   if (median) {
-    desc$median <- sapply(data, function(x) ifelse(is.numeric(x), median(x), NA))
+    desc$median <- sapply(data, function(x) ifelse(is.numeric(x), median(x,na.rm=T), NA))
   }
   if (p75) {
-    desc$p75 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.75), NA))
+    desc$p75 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.75,na.rm=T), NA))
   }
   if (max) {
-    desc$max <- sapply(data, function(x) ifelse(is.numeric(x), max(x), NA))
+    desc$max <- sapply(data, function(x) ifelse(is.numeric(x), max(x,na.rm=T), NA))
   }
   if (sd) {
     desc$sd <- sapply(data, function(x) ifelse(is.numeric(x), sd(x), NA))
@@ -93,3 +93,5 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
   desc <- desc[,-1]
   return(desc)
 }
+
+

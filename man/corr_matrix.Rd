@@ -24,12 +24,12 @@ corr_matrix(
 
 \item{corrplot}{generate a correlation matrix plot, default is true}
 
-\item{order}{Character, the ordering method of the correlation matrix.\n
-'hclust' for the hierarchical clustering order(default).\n
-.'original' for original order.\n
-'AOE' for the angular order of the eigenvectors.\n
-'FPC' for the first principal component order.\n
-'alphabet' for alphabetical order.\n}
+\item{order}{Character, the ordering method of the correlation matrix.
+'hclust' for the hierarchical clustering order (default).         
+'original' for the original order.       
+'AOE' for the angular order of the eigenvectors.   
+'FPC' for the first principal component order.    
+'alphabet' for alphabetical order.}
 
 \item{sig.level}{Significant level. default is 0.01. If correlation p-value is less than 0.01, wipe away the corresponding glyph.}
 
@@ -38,16 +38,19 @@ corr_matrix(
 \item{number.cex}{Size of the coefficents values}
 }
 \value{
-a data frame which contain rows names, column names, correlatiopn coefficients, and p-values
+a data frame which contain rows names, column names, correlation coefficients, and p-values
 
 a plot of correlation if corrplot is set to be true
 }
 \description{
-Column 1 : row names (variable 1 for the correlation test)\n
-Column 2 : column names (variable 2 for the correlation test)\n
-Column 3 : the correlation coefficients \n
-Column 4 : the p-values of the correlations \n
+Column 1: row names (variable 1 for the correlation test).   
+  
+  Column 2: column names (variable 2 for the correlation test).    
+  
+  Column 3: the correlation coefficients.    
+  
+  Column 4: the p-values of the correlations.
 }
 \examples{
-corr_matrix(data(mtcars),type='pearson',decreasing= TRUE,corrplot=TRUE, order='hclust',sig.level = 0.01,addCoef.col='yellow',number.cex=0.5)
+corr_matrix(data(mtcars),type='pearson')
 }

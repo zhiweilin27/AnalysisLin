@@ -21,3 +21,6 @@ a list of plots
 \description{
 Numerical Variables Distribution
 }
+\examples{
+numeric_plot(data(mtcars),prob=T,dens=T)
+}

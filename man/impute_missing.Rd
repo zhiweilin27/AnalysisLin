@@ -7,8 +7,15 @@
 impute_missing(data, method = "mean", k = NULL)
 }
 \arguments{
-\item{k}{}
+\item{data}{input data}
+
+\item{method}{method of handling missing values: mean, median, mode, locf,knn.}
+
+\item{k}{argument used in knn method. k is value of number of neighbors will be checked. Default is Null}
 }
 \description{
 Missing Value Imputation
+}
+\examples{
+impute_missing(data(mtcars), method='mean')
 }

@@ -14,9 +14,11 @@ categoric_plot(
   bar = TRUE,
   bar_legend = TRUE,
   bar_legend_size = 0.5,
-  bar_legend_positon = "bottom",
+  bar_legend_position = "bottom",
   bar_inset = c(0, -0.4),
-  n_col = 1
+  n_col = 1,
+  bar_width = 0.8,
+  bar_height = NULL
 )
 }
 \arguments{
@@ -36,13 +38,20 @@ categoric_plot(
 
 \item{bar_legend_size}{an argument(default is 0.5) that determines size of the legend}
 
+\item{bar_legend_position}{an argument(dafult is bottom) that determines the position of the legend}
+
 \item{n_col}{an argument that determine how many plot being put on the same rows}
 
-\item{bar_legend_position}{an argument(dafult is bottom) that determines the position of the legend}
+\item{bar_width}{width of bar plot}
+
+\item{bar_height}{height of bar plot}
 }
 \value{
 a list of pie charts
 }
 \description{
 Categorical Variables Plots
+}
+\examples{
+categoric_plot(data(mtcars))
 }
