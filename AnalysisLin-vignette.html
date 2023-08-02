@@ -372,18 +372,16 @@ which is my personal package for exploratory data analysis. You can find
 the source package on my Github: <a href="https://github.com/Zhiwei2799/AnalysisLin">https://github.com/Zhiwei2799/AnalysisLin</a></p>
 <p>There are several useful functions in this package, and table below
 summarize the functions that will be going over in this vignette</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz&quot;</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(AnalysisLin)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">Descriptive_Statistics =</span> <span class="fu">c</span>(<span class="st">&quot;desc_stat()&quot;</span>,<span class="st">&quot;&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">Data_Visualization =</span> <span class="fu">c</span>(<span class="st">&quot;numeric_plot()&quot;</span>, <span class="st">&quot;categoric_plot()&quot;</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">Correlation_Analysis =</span> <span class="fu">c</span>(<span class="st">&quot;corr_matrix()&quot;</span>, <span class="st">&quot;corr_cluster()&quot;</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">Feature_Engineering =</span> <span class="fu">c</span>(<span class="st">&quot;missing_impute()&quot;</span>, <span class="st">&quot;automate_pca()&quot;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># Print the table</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">Descriptive_Statistics =</span> <span class="fu">c</span>(<span class="st">&quot;desc_stat()&quot;</span>,<span class="st">&quot;&quot;</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">Data_Visualization =</span> <span class="fu">c</span>(<span class="st">&quot;numeric_plot()&quot;</span>, <span class="st">&quot;categoric_plot()&quot;</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">Correlation_Analysis =</span> <span class="fu">c</span>(<span class="st">&quot;corr_matrix()&quot;</span>, <span class="st">&quot;corr_cluster()&quot;</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">Feature_Engineering =</span> <span class="fu">c</span>(<span class="st">&quot;missing_impute()&quot;</span>, <span class="st">&quot;automate_pca()&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Print the table</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="27%" />
@@ -418,6 +416,8 @@ summarize the functions that will be going over in this vignette</p>
 and airquality, would be used for this document to demonstrate what does
 each function in the package do. If you have not installed the package,
 please do the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz&quot;</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(AnalysisLin)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mtcars&quot;</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;airquality&quot;</span>)</span></code></pre></div>
