@@ -86,9 +86,10 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     desc$jarque_pvalue <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque_test(x)), NA)
   }
   desc <- desc[,-1]
+  desc <- t(desc)
   cat("Descriptive Statistics Results:\n")
-  cat("=================================\n")
-  return(desc)
+  cat("=========================================================================\n")
+  print(desc,quote=FALSE)
 }
 
 

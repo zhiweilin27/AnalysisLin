@@ -19,23 +19,20 @@ vignette: >
   - [Principle Component Analysis](#principle-component-analysis)
   
 # Introduction
-Hi everyone, this vignette is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis. You can find the source package on my Github: [https://github.com/Zhiwei2799/AnalysisLin](https://github.com/Zhiwei2799/AnalysisLin)
+Hi everyone, this page is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis. You can find the source package on my Github: [https://github.com/Zhiwei2799/AnalysisLin](https://github.com/Zhiwei2799/AnalysisLin)
 
-There are several useful functions in this package, and table below summarize the functions that would be going over in this vignette
+There are several useful functions in this package, and table below summarize the functions that would be going over in this page
 ```{r,echo=FALSE}
 library(knitr)
 ```
 
 ```{r}
-# Create a data frame
 df <- data.frame(
   Descriptive_Statistics = c("desc_stat()",""),
   Data_Visualization = c("numeric_plot()", "categoric_plot()"),
   Correlation_Analysis = c("corr_matrix()", "corr_cluster()"),
   Feature_Engineering = c("missing_impute()", "automate_pca()")
 )
-
-# Print the table
 kable(df)
 ```
 Famous and very useful pre-installed datasets, such as iris, mtcars, and airquality, would be used for this document to demonstrate what does each function in the package do. If you have not installed the package, please do the following:
@@ -54,7 +51,7 @@ data("airquality")
 Exploratory Data Analysis, in simple words, is the process to get to know your data. 
 
 ## Descriptive Statistic
-First function in package is desc_stat, it's a function that compute many useful statistical metrics so that you gain deep understanding of your data
+First function in package is desc_stat. This function computes numerous useful statistical metrics so that you gain a profound understanding of your data
 
 - **Count**: Number of values in a variable.
 - **Unique**: Number of values that are unique in a variable.
@@ -84,7 +81,7 @@ desc_stat(mtcars)
 desc_stat(airquality)
 ```
 
-These metrics provide valuable insights into the dataset in a deep level. If you don't want any of these metrics to be computed, you can set them to `FALSE`, so that the unwanted metrics wouldn't be shown in the output.
+These metrics provide valuable insights into the dataset in a deep level. If you don't want any of these metrics to be computed, you can set them to `FALSE`. This way, the unwanted metrics won't appear in the output.
 
 For example, if you don't want kurtosis,skewness and jarque_pvalue for mtcar dataset:
 ```{r}
@@ -105,6 +102,7 @@ To visualize bar/pie charts for all categorical variables
 ```{r}
 categoric_plot(iris,bar_width = 1)
 ```
+
 if you just want bar or pie chart:
 ```{r,results = 'hide'}
 categoric_plot(iris,bar=F)
