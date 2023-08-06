@@ -24,7 +24,7 @@ impute_missing <- function(data, method = "mean", k = NULL) {
   } else if (method == "knn" && !is.null(k)) {
     imputed_data <- impute_knn(imputed_data, k)
   } else {
-    stop("Invalid imputation method. Supported methods are: mean, median, mode, locf, knn, regression, multiple.")
+    stop("Invalid imputation method. Supported methods are: mean, median, mode, locf, knn")
   }
 
   return(as.data.frame(imputed_data))
