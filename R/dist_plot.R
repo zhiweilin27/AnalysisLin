@@ -11,8 +11,7 @@
 numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
-  plots <- list() # Initialize a list to store the plots
-
+  plots <- list() 
   for (i in 1:length(numerical)) {
     # Create the histogram plot
     if (hist){
@@ -22,10 +21,7 @@ numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
     if(dens){
       lines(density(data[[numerical[i]]]), col = "red", lwd = 2)
     }
-    # Store the plot in the list
-    plots[[i]] <- recordPlot()
   }
-
   return(plots)
 }
 
@@ -55,17 +51,11 @@ categoric_plot <- function(data, pie=TRUE, pie_legend=TRUE, pie_legend_size=0.5,
 
   for (i in 1:length(categorical)) {
     table_data <- table(data[[categorical[i]]]) # Calculate the frequencies
-
-    # Set up the multi-panel layout
     par(mfrow = c(1, n_col))
-
-    # Create the pie chart
     if (pie){
       pie_data <- table_data / sum(table_data)
       colors <- rainbow(length(table_data))
       pie(pie_data, main = paste(categorical[i], "Pie"), col = colors)
-
-      # Add percentage labels to the pie chart
       labels <- paste0(names(table_data), " (", round(100 * pie_data, 1), "%)")
       if (pie_legend) {
         legend(pie_legend_position, legend = labels, cex = pie_legend_size, horiz=T, fill = colors, xpd = TRUE, inset = pie_inset)
@@ -79,8 +69,6 @@ categoric_plot <- function(data, pie=TRUE, pie_legend=TRUE, pie_legend_size=0.5,
       } else {
         barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors, width = bar_width, height = bar_height)
       }
-
-      # Add legend to the bar plot
       if (bar_legend) {
         legend(bar_legend_position, legend = names(table_data), horiz=T,fill = bar_colors, xpd = TRUE, inset = bar_inset)
       }

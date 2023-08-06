@@ -33,13 +33,6 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
   if (length(data) == 0) {
     stop("Input data is empty.")
   }
-
-  if (!require("moments")){
-    install.packages("moments")
-    library(moments)
-    # Suppress the package startup message for 'moments'
-    suppressPackageStartupMessages(library(moments))
-  }
   
   desc <- data.frame(matrix(NA,nrow=ncol(data)))
   rownames(desc) <- names(data)
@@ -90,12 +83,44 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
   }
   if (jarque_test) {
     is_numeric <- sapply(data, is.numeric)
-    desc$jarque_pvalue <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque.test(x)$p.value), NA)
+    desc$jarque_pvalue <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque_test(x)), NA)
   }
   desc <- desc[,-1]
   cat("Descriptive Statistics Results:\n")
   cat("=================================\n")
   return(desc)
+}
+
+
+
+skewness <- function(x) {
+  n <- length(x)
+  mean_val <- mean(x,na.rm=T)
+  std_dev <- sqrt(sum((x - mean_val)^2) / (n))
+  Z <- (x-mean_val)/std_dev
+  
+  skewness <- sum(Z^3)/n
+  return(skewness)
+}
+
+
+
+kurtosis <- function(x) {
+  n <- length(x)
+  mean_val <- mean(x,na.rm=T)
+  std_dev <- sqrt(sum((x - mean_val)^2) / (n))
+  Z <- (x-mean_val)/std_dev
+  kurtosis <- sum(Z^4)/n
+  return(kurtosis)
+}
+
+jarque_test <- function(x) {
+  n <- length(x)
+  skew <- skewness(x)
+  kurt <- kurtosis(x)
+  
+  jarque_pvalue <- 1 - pchisq(n/6 * (skew^2 + (kurt - 3)^2 / 4), df = 2)
+  return(jarque_pvalue)
 }
 
 
