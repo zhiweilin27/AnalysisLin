@@ -368,21 +368,20 @@ Analysis</a></li>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Hi everyone, this vignette is to introduce the package AnalysisLin,
-which is my personal package for exploratory data analysis</p>
+which is my personal package for exploratory data analysis. You can find
+the source package on my Github: <a href="https://github.com/Zhiwei2799/AnalysisLin">https://github.com/Zhiwei2799/AnalysisLin</a></p>
 <p>There are several useful functions in this package, and table below
-summarize the functions that will be going over in this vignette</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz&quot;</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(AnalysisLin)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">Descriptive_Statistics =</span> <span class="fu">c</span>(<span class="st">&quot;desc_stat()&quot;</span>,<span class="st">&quot;&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">Data_Visualization =</span> <span class="fu">c</span>(<span class="st">&quot;numeric_plot()&quot;</span>, <span class="st">&quot;categoric_plot()&quot;</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">Correlation_Analysis =</span> <span class="fu">c</span>(<span class="st">&quot;corr_matrix()&quot;</span>, <span class="st">&quot;corr_cluster()&quot;</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">Feature_Engineering =</span> <span class="fu">c</span>(<span class="st">&quot;missing_impute()&quot;</span>, <span class="st">&quot;automate_pca()&quot;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># Print the table</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+summarize the functions that would be going over in this vignette</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">Descriptive_Statistics =</span> <span class="fu">c</span>(<span class="st">&quot;desc_stat()&quot;</span>,<span class="st">&quot;&quot;</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">Data_Visualization =</span> <span class="fu">c</span>(<span class="st">&quot;numeric_plot()&quot;</span>, <span class="st">&quot;categoric_plot()&quot;</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">Correlation_Analysis =</span> <span class="fu">c</span>(<span class="st">&quot;corr_matrix()&quot;</span>, <span class="st">&quot;corr_cluster()&quot;</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">Feature_Engineering =</span> <span class="fu">c</span>(<span class="st">&quot;missing_impute()&quot;</span>, <span class="st">&quot;automate_pca()&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Print the table</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="27%" />
@@ -417,6 +416,8 @@ summarize the functions that will be going over in this vignette</p>
 and airquality, would be used for this document to demonstrate what does
 each function in the package do. If you have not installed the package,
 please do the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz&quot;</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(AnalysisLin)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mtcars&quot;</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;airquality&quot;</span>)</span></code></pre></div>
@@ -425,8 +426,35 @@ know your data.</p>
 <div id="descriptive-statistic" class="section level2">
 <h2>Descriptive Statistic</h2>
 <p>First function in package is desc_stat, it’s a function that compute
-many useful statistical metrics so that you gain deeper understanding of
+many useful statistical metrics so that you gain deep understanding of
 your data</p>
+<ul>
+<li><strong>Count</strong>: Number of values in a variable.</li>
+<li><strong>Unique</strong>: Number of values that are unique in a
+variable.</li>
+<li><strong>Duplicate</strong>: Number of rows that are duplicate in a
+dataset.</li>
+<li><strong>Null</strong>: Number of values that are missing in a
+variable.</li>
+<li><strong>Null Rate</strong>: Percentage of values that are missing in
+a variable.</li>
+<li><strong>Type</strong>: Type of variable (e.g., numeric, character,
+factor).</li>
+<li><strong>Min</strong>: Smallest value.</li>
+<li><strong>P25</strong>: Median of the first half.</li>
+<li><strong>Mean</strong>: Mean value.</li>
+<li><strong>Median</strong>: Median value.</li>
+<li><strong>P75</strong>: Median of the second half.</li>
+<li><strong>Max</strong>: Largest value.</li>
+<li><strong>SD</strong>: Standard deviation.</li>
+<li><strong>Kurtosis</strong>: A measure of the tailedness of a
+distribution.</li>
+<li><strong>Skewness</strong>: A measure of the asymmetry of a
+distribution.</li>
+<li><strong>Jarque-Bera Test P-value</strong>: P-value from the
+Jarque-Bera test that checks whether data have the skewness and kurtosis
+matching a normal distribution.</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">desc_stat</span>(iris)</span></code></pre></div>
 <pre><code>## Loading required package: moments</code></pre>
 <pre><code>##              count unique duplicate null null_rate    type min p25     mean
@@ -481,35 +509,6 @@ your data</p>
 ## Temp      79.0  85.00  97.0 9.465270 2.570600 -0.374169579   0.093222890
 ## Month      7.0   8.00   9.0 1.416522 1.705474 -0.002367988   0.004787856
 ## Day       16.0  23.00  31.0 8.864520 1.801025  0.002625783   0.010231870</code></pre>
-<p>As can be seen, the descriptive statistics contain most, if not all,
-key statistical metrics for a dataset:</p>
-<ul>
-<li><strong>Count</strong>: Number of values in a variable.</li>
-<li><strong>Unique</strong>: Number of values that are unique in a
-variable.</li>
-<li><strong>Duplicate</strong>: Number of rows that are duplicate in a
-dataset.</li>
-<li><strong>Null</strong>: Number of values that are missing in a
-variable.</li>
-<li><strong>Null Rate</strong>: Percentage of values that are missing in
-a variable.</li>
-<li><strong>Type</strong>: Type of variable (e.g., numeric, character,
-factor).</li>
-<li><strong>Min</strong>: Smallest value.</li>
-<li><strong>P25</strong>: Median of the first half.</li>
-<li><strong>Mean</strong>: Mean value.</li>
-<li><strong>Median</strong>: Median value.</li>
-<li><strong>P75</strong>: Median of the second half.</li>
-<li><strong>Max</strong>: Largest value.</li>
-<li><strong>SD</strong>: Standard deviation.</li>
-<li><strong>Kurtosis</strong>: A measure of the tailedness of a
-distribution.</li>
-<li><strong>Skewness</strong>: A measure of the asymmetry of a
-distribution.</li>
-<li><strong>Jarque-Bera Test P-value</strong>: P-value from the
-Jarque-Bera test that checks whether data have the skewness and kurtosis
-matching a normal distribution.</li>
-</ul>
 <p>These metrics provide valuable insights into the dataset in a deep
 level. If you don’t want any of these metrics to be computed, you can
 set them to <code>FALSE</code>, so that the unwanted metrics wouldn’t be

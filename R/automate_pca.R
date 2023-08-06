@@ -9,41 +9,45 @@
 #' @export
 #'
 #' @examples automate_pca(data(mtcars))
-automate_pca<- function(data, scale=TRUE, variance_threshold = 0.9, scree_plot = TRUE) {
-  # Perform PCA
+automate_pca <- function(data, scale = TRUE, variance_threshold = 0.9, scree_plot = TRUE) {
   pca <- prcomp(data, scale = scale)
-
-  # Extract the results
   pca_results <- list()
   pca_results$rotation <- pca$rotation
   pca_results$scores <- pca$x
-
-  # Calculate cumulative variance
   cumulative_variance <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
-
-
-  # Find the index where the cumulative variance crosses the threshold
   num_components <- min(which(cumulative_variance >= variance_threshold))
-
-  # Extract only the relevant components
   pca_results$rotation <- pca_results$rotation[, 1:num_components]
   pca_results$scores <- pca_results$scores[, 1:num_components]
-  if(scree_plot){
-    # Create the scree plot
-    plot(1:length(pca$sdev),cumulative_variance, type = "b",
+  
+  if (scree_plot) {
+    plot(1:length(pca$sdev), cumulative_variance, type = "b",
          xlab = "Principal Component", ylab = "Proportion of Variance Explained",
          main = "Scree Plot")
-
-    # Add a horizontal line at the variance threshold
     abline(h = variance_threshold, col = "red")
-
-    # Add text indicating the proportion of variance explained at each point
     text(1:length(pca$sdev), cumulative_variance,
-         labels = paste0(round(cumulative_variance*100, 2),"%"),pos=4)
+         labels = paste0(round(cumulative_variance * 100, 2), "%"), pos = 4)
+    legend("bottomright", legend = c("Variance Threshold", "Cumulative Variance Explained"),
+           col = c("red", "black"), lty = 1, cex = 0.8)
   }
-  return(pca_results)
+  cat(paste(
+    "PCA Analysis Results:",
+    "\n==========================",
+    "\nTotal number of variables:", ncol(data),
+    "\nNumber of principal components retained:", num_components,
+    "\nTotal cumulative variance explained:", round(cumulative_variance[num_components] * 100, 2), "%",
+    "\n",
+    "\n"
+  ))
+  result <- list(rotation_matrix = pca_results$rotation, scores_matrix= pca_results$scores)
+  return(result)
 }
 
 
-automate_pca(mtcars[,2:5])
+
+
+
+
+
+
+
 

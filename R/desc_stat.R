@@ -29,7 +29,7 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
                       null_rate = TRUE, type = TRUE, min = TRUE, p25 = TRUE, mean = TRUE,
                       median = TRUE, p75 = TRUE, max = TRUE, sd = TRUE, kurtosis = TRUE,
                       skewness = TRUE, jarque_test = TRUE) {
-
+  
   if (length(data) == 0) {
     stop("Input data is empty.")
   }
@@ -37,8 +37,10 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
   if (!require("moments")){
     install.packages("moments")
     library(moments)
+    # Suppress the package startup message for 'moments'
+    suppressPackageStartupMessages(library(moments))
   }
-
+  
   desc <- data.frame(matrix(NA,nrow=ncol(data)))
   rownames(desc) <- names(data)
   if (count) {
@@ -91,6 +93,8 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     desc$jarque_pvalue <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque.test(x)$p.value), NA)
   }
   desc <- desc[,-1]
+  cat("Descriptive Statistics Results:\n")
+  cat("=================================\n")
   return(desc)
 }
 

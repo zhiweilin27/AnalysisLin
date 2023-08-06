@@ -31,6 +31,8 @@ corr_matrix <- function(data, type ='pearson', decreasing = TRUE,corrplot=FALSE,
   if (!require(corrplot)) install.packages('corrplot')
   library(Hmisc)
   library(corrplot)
+  suppressPackageStartupMessages(library(Hmisc))
+  suppressPackageStartupMessages(library(corrplot))
   cormat <- rcorr(as.matrix(data),type = type)$r
   pmat <- rcorr(as.matrix(data),type = type)$P
   pmat[is.na(pmat)] <- 0

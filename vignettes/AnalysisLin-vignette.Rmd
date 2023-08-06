@@ -19,16 +19,11 @@ vignette: >
   - [Principle Component Analysis](#principle-component-analysis)
   
 # Introduction
-Hi everyone, this vignette is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis
+Hi everyone, this vignette is to introduce the package AnalysisLin, which is my personal package for exploratory data analysis. You can find the source package on my Github: [https://github.com/Zhiwei2799/AnalysisLin](https://github.com/Zhiwei2799/AnalysisLin)
 
-There are several useful functions in this package, and table below summarize the functions that will be going over in this vignette
+There are several useful functions in this package, and table below summarize the functions that would be going over in this vignette
 ```{r,echo=FALSE}
 library(knitr)
-```
-
-```{r}
-install.packages("/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz", repos = NULL, type = "source")
-library(AnalysisLin)
 ```
 
 ```{r}
@@ -44,7 +39,10 @@ df <- data.frame(
 kable(df)
 ```
 Famous and very useful pre-installed datasets, such as iris, mtcars, and airquality, would be used for this document to demonstrate what does each function in the package do. If you have not installed the package, please do the following:
-
+```{r}
+install.packages("/Users/zhiweilin/Desktop/My package/AnalysisLin_0.1.0.tar.gz", repos = NULL, type = "source")
+library(AnalysisLin)
+```
 
 ```{r}
 data("iris")
@@ -56,20 +54,7 @@ data("airquality")
 Exploratory Data Analysis, in simple words, is the process to get to know your data. 
 
 ## Descriptive Statistic
-First function in package is desc_stat, it's a function that compute many useful statistical metrics so that you gain deeper understanding of your data
-
-```{r}
-desc_stat(iris)
-```
-
-```{r}
-desc_stat(mtcars)
-```
-
-```{r}
-desc_stat(airquality)
-```
-As can be seen, the descriptive statistics contain most, if not all, key statistical metrics for a dataset:
+First function in package is desc_stat, it's a function that compute many useful statistical metrics so that you gain deep understanding of your data
 
 - **Count**: Number of values in a variable.
 - **Unique**: Number of values that are unique in a variable.
@@ -87,6 +72,17 @@ As can be seen, the descriptive statistics contain most, if not all, key statist
 - **Kurtosis**: A measure of the tailedness of a distribution.
 - **Skewness**: A measure of the asymmetry of a distribution.
 - **Jarque-Bera Test P-value**: P-value from the Jarque-Bera test that checks whether data have the skewness and kurtosis matching a normal distribution.
+```{r}
+desc_stat(iris)
+```
+
+```{r}
+desc_stat(mtcars)
+```
+
+```{r}
+desc_stat(airquality)
+```
 
 These metrics provide valuable insights into the dataset in a deep level. If you don't want any of these metrics to be computed, you can set them to `FALSE`, so that the unwanted metrics wouldn't be shown in the output.
 
