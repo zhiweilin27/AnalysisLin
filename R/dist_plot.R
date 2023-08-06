@@ -13,11 +13,9 @@ numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
   plots <- list() 
   for (i in 1:length(numerical)) {
-    # Create the histogram plot
     if (hist){
       hist(data[[numerical[i]]], prob=prob, main = paste(numerical[i], "Distribution"), xlab = NULL, ylab = "Frequency")
     }
-    # Add the density plot
     if(dens){
       lines(density(data[[numerical[i]]]), col = "red", lwd = 2)
     }

@@ -31,7 +31,6 @@ impute_missing <- function(data, method = "mean", k = NULL) {
 }
 
 
-# Custom LOCF (Last Observation Carried Forward) imputation
 impute_locf <- function(x) {
   if(!require(zoo)){
     install.packages('zoo')
@@ -41,14 +40,12 @@ impute_locf <- function(x) {
   return(imputed_values)
 }
 
-# Custom mode function
 impute_mode <- function(x) {
   tbl <- table(x)
   modes <- tbl[tbl == max(tbl)]
   return(as.numeric(names(modes)))
 }
 
-# Custom kNN imputation
 impute_knn <- function(data, k) {
   if (!require(caret)) {
     install.packages('caret')
@@ -58,11 +55,9 @@ impute_knn <- function(data, k) {
     install.packages('RANN')
     library(RANN)
   }
-  # Perform KNN imputation
   imputed_values <- preProcess(data, method = 'knnImpute', k = k)
   imputed_data <- predict(imputed_values, data)
   
-  # Post-process the imputed data using preProcess information
   procNames <- data.frame(col = names(imputed_values$mean), mean = imputed_values$mean, sd = imputed_values$std)
   for (i in procNames$col) {
     imputed_data[i] <- imputed_data[i] * imputed_values$std[i] + imputed_values$mean[i]
