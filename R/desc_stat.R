@@ -33,66 +33,102 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
   if (length(data) == 0) {
     stop("Input data is empty.")
   }
+  num_stats <- sum(count, unique, duplicate, null, null_rate, type, min, p25,
+                   mean, median, p75, max, sd, kurtosis, skewness, jarque_test)
   
-  desc <- data.frame(matrix(NA,nrow=ncol(data)))
-  rownames(desc) <- names(data)
+  desc <- matrix(NA,ncol = ncol(data),nrow=num_stats)
+  colnames(desc) <- names(data)
+  
+  row_counter <- 1
+  
   if (count) {
-    desc$count <- sapply(data, function(x) sum(!is.na(x)))
+    desc[row_counter, ] <- sapply(data, function(x) sum(!is.na(x)))
+    row_counter <- row_counter + 1
   }
   if (unique) {
-    desc$unique <- sapply(data, function(x) length(unique(x)))
+    desc[row_counter, ] <- sapply(data, function(x) length(unique(x)))
+    row_counter <- row_counter + 1
   }
   if (duplicate) {
-    desc$duplicate <- sum(duplicated(data))
+    desc[row_counter, ] <- sum(duplicated(data))
+    row_counter <- row_counter + 1
   }
   if (null) {
-    desc$null <- sapply(data, function(x) sum(is.na(x)))
+    desc[row_counter, ] <- sapply(data, function(x) sum(is.na(x)))
+    row_counter <- row_counter + 1
   }
   if (null_rate) {
-    desc$null_rate <- sapply(data, function(x) sum(is.na(x)) / length(x))
+    desc[row_counter, ] <- sapply(data, function(x) sum(is.na(x)) / length(x))
+    row_counter <- row_counter + 1
   }
   if (type) {
-    desc$type <- sapply(data, function(x) class(x))
+    desc[row_counter, ] <- sapply(data, function(x) class(x))
+    row_counter <- row_counter + 1
   }
   if (min) {
-    desc$min <- sapply(data, function(x) ifelse(is.numeric(x), min(x,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), min(x,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (p25) {
-    desc$p25 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.25,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.25,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (mean) {
-    desc$mean <- sapply(data, function(x) ifelse(is.numeric(x), mean(x,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), mean(x,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (median) {
-    desc$median <- sapply(data, function(x) ifelse(is.numeric(x), median(x,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), median(x,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (p75) {
-    desc$p75 <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.75,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), quantile(x, 0.75,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (max) {
-    desc$max <- sapply(data, function(x) ifelse(is.numeric(x), max(x,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), max(x,na.rm=T), NA))
+    row_counter <- row_counter + 1
   }
   if (sd) {
-    desc$sd <- sapply(data, function(x) ifelse(is.numeric(x), sd(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), sd(x), NA))
+    row_counter <- row_counter + 1
   }
   if (kurtosis) {
-    desc$kurtosis <- sapply(data, function(x) ifelse(is.numeric(x), kurtosis(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), kurtosis(x), NA))
+    row_counter <- row_counter + 1
   }
   if (skewness) {
-    desc$skewness <- sapply(data, function(x) ifelse(is.numeric(x), skewness(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), skewness(x), NA))
+    row_counter <- row_counter + 1
   }
   if (jarque_test) {
     is_numeric <- sapply(data, is.numeric)
-    desc$jarque_pvalue <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque_test(x)), NA)
+    desc[row_counter, ] <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque_test(x)), NA)
   }
-  desc <- desc[,-1]
+  
+  rownames(desc) <- c(
+    if (count) "count",
+    if (unique) "unique",
+    if (duplicate) "duplicate",
+    if (null) "null",
+    if (null_rate) "null_rate",
+    if (type) "type",
+    if (min) "min",
+    if (p25) "p25",
+    if (mean) "mean",
+    if (median) "median",
+    if (p75) "p75",
+    if (max) "max",
+    if (sd) "sd",
+    if (kurtosis) "kurtosis",
+    if (skewness) "skewness",
+    if (jarque_test) "jarque_pvalue"
+  )
   desc <- t(desc)
   cat("Descriptive Statistics Results:\n")
   cat("=========================================================================\n")
   print(desc,quote=FALSE)
 }
-
-
 
 skewness <- function(x) {
   n <- length(x)
