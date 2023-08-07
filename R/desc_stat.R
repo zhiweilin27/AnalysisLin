@@ -58,7 +58,7 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     row_counter <- row_counter + 1
   }
   if (null_rate) {
-    desc[row_counter, ] <- sapply(data, function(x) sum(is.na(x)) / length(x))
+    desc[row_counter, ] <- sapply(data, function(x) round(sum(is.na(x)) / length(x),4))
     row_counter <- row_counter + 1
   }
   if (type) {
