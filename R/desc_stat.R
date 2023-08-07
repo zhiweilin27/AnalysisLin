@@ -74,7 +74,7 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     row_counter <- row_counter + 1
   }
   if (mean) {
-    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), mean(x,na.rm=T), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(mean(x,na.rm=T),4), NA))
     row_counter <- row_counter + 1
   }
   if (median) {
@@ -90,20 +90,20 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     row_counter <- row_counter + 1
   }
   if (sd) {
-    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), sd(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(sd(x),4), NA))
     row_counter <- row_counter + 1
   }
   if (kurtosis) {
-    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), kurtosis(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(kurtosis(x),4), NA))
     row_counter <- row_counter + 1
   }
   if (skewness) {
-    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), skewness(x), NA))
+    desc[row_counter, ] <- sapply(data, function(x) ifelse(is.numeric(x), round(skewness(x),4), NA))
     row_counter <- row_counter + 1
   }
   if (jarque_test) {
     is_numeric <- sapply(data, is.numeric)
-    desc[row_counter, ] <- ifelse(is_numeric, sapply(data[is_numeric], function(x) jarque_test(x)), NA)
+    desc[row_counter, ] <- ifelse(is_numeric, round(sapply(data[is_numeric], function(x) jarque_test(x)),4), NA)
   }
   
   rownames(desc) <- c(
@@ -124,7 +124,6 @@ desc_stat <- function(data, count = TRUE, unique = TRUE, duplicate = TRUE, null 
     if (skewness) "skewness",
     if (jarque_test) "jarque_pvalue"
   )
-  desc <- t(desc)
   cat("Descriptive Statistics Results:\n")
   cat("=========================================================================\n")
   print(desc,quote=FALSE)

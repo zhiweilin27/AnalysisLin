@@ -455,87 +455,97 @@ matching a normal distribution.</li>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">desc_stat</span>(iris)</span></code></pre></div>
 <pre><code>## Descriptive Statistics Results:
 ## =========================================================================
-##              count unique duplicate null null_rate type    min  p25 
-## Sepal.Length 150   35     1         0    0         numeric 4.3  5.1 
-## Sepal.Width  150   23     1         0    0         numeric 2    2.8 
-## Petal.Length 150   43     1         0    0         numeric 1    1.6 
-## Petal.Width  150   22     1         0    0         numeric 0.1  0.3 
-## Species      150   3      1         0    0         factor  &lt;NA&gt; &lt;NA&gt;
-##              mean             median p75  max  sd               
-## Sepal.Length 5.84333333333333 5.8    6.4  7.9  0.828066127977863
-## Sepal.Width  3.05733333333333 3      3.3  4.4  0.435866284936698
-## Petal.Length 3.758            4.35   5.1  6.9  1.76529823325947 
-## Petal.Width  1.19933333333333 1.3    1.8  2.5  0.762237668960346
-## Species      &lt;NA&gt;             &lt;NA&gt;   &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;             
-##              kurtosis         skewness           jarque_pvalue     
-## Sepal.Length 2.42643205107503 0.311753058502296  0.10614621817188  
-## Sepal.Width  3.18097631752247 0.315767106338938  0.259574337246641 
-## Petal.Length 1.60446411360099 -0.272127666456721 0.0009013025009319
-## Petal.Width  1.66393259476845 -0.101934206565601 0.0033184909625571
-## Species      &lt;NA&gt;             &lt;NA&gt;               &lt;NA&gt;</code></pre>
+##               Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## count         150          150         150          150         150    
+## unique        35           23          43           22          3      
+## duplicate     1            1           1            1           1      
+## null          0            0           0            0           0      
+## null_rate     0            0           0            0           0      
+## type          numeric      numeric     numeric      numeric     factor 
+## min           4.3          2           1            0.1         &lt;NA&gt;   
+## p25           5.1          2.8         1.6          0.3         &lt;NA&gt;   
+## mean          5.8433       3.0573      3.758        1.1993      &lt;NA&gt;   
+## median        5.8          3           4.35         1.3         &lt;NA&gt;   
+## p75           6.4          3.3         5.1          1.8         &lt;NA&gt;   
+## max           7.9          4.4         6.9          2.5         &lt;NA&gt;   
+## sd            0.8281       0.4359      1.7653       0.7622      &lt;NA&gt;   
+## kurtosis      2.4264       3.181       1.6045       1.6639      &lt;NA&gt;   
+## skewness      0.3118       0.3158      -0.2721      -0.1019     &lt;NA&gt;   
+## jarque_pvalue 0.1061       0.2596      9e-04        0.0033      &lt;NA&gt;</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">desc_stat</span>(mtcars)</span></code></pre></div>
 <pre><code>## Descriptive Statistics Results:
 ## =========================================================================
-##      count unique duplicate null null_rate type    min   p25     mean      
-## mpg  32    25     0         0    0         numeric 10.4  15.425  20.090625 
-## cyl  32    3      0         0    0         numeric 4     4       6.1875    
-## disp 32    27     0         0    0         numeric 71.1  120.825 230.721875
-## hp   32    22     0         0    0         numeric 52    96.5    146.6875  
-## drat 32    22     0         0    0         numeric 2.76  3.08    3.5965625 
-## wt   32    29     0         0    0         numeric 1.513 2.58125 3.21725   
-## qsec 32    30     0         0    0         numeric 14.5  16.8925 17.84875  
-## vs   32    2      0         0    0         numeric 0     0       0.4375    
-## am   32    2      0         0    0         numeric 0     0       0.40625   
-## gear 32    3      0         0    0         numeric 3     3       3.6875    
-## carb 32    6      0         0    0         numeric 1     2       2.8125    
-##      median p75  max   sd                kurtosis         skewness          
-## mpg  19.2   22.8 33.9  6.0269480520891   2.7994667902845  0.640439864031886 
-## cyl  6      8    8     1.78592164694654  1.31903158318696 -0.183128652344797
-## disp 196.3  326  472   123.938693831382  1.91031734298649 0.400272448472866 
-## hp   123    180  335   68.5628684893206  3.052232728404   0.761435636133362 
-## drat 3.695  3.92 4.93  0.534678736070971 2.43511609728188 0.278873431985467 
-## wt   3.325  3.61 5.424 0.978457442989697 3.17247054015873 0.443785535506078 
-## qsec 17.71  18.9 22.9  1.78694323609684  3.55375334114579 0.387045551397318 
-## vs   0      1    1     0.504016128774185 1.06349206349206 0.251976315339485 
-## am   0      1    1     0.498990917235846 1.14574898785425 0.381770857785467 
-## gear 4      4    5     0.737804065256947 2.05679012345679 0.554649466864272 
-## carb 2      4    8     1.61519997763185  4.53612081918927 1.10213038701403  
-##      jarque_pvalue      
-## mpg  0.326091379838002  
-## cyl  0.139011378747708  
-## disp 0.295568807931683  
-## hp   0.212692011896934  
-## drat 0.656969998966947  
-## wt   0.579830769032684  
-## qsec 0.54667186803963   
-## vs   0.0692969655142842 
-## am   0.0685063723084195 
-## gear 0.243300170019567  
-## carb 0.00812923474322769</code></pre>
+##               mpg     cyl     disp     hp       drat    wt      qsec    vs     
+## count         32      32      32       32       32      32      32      32     
+## unique        25      3       27       22       22      29      30      2      
+## duplicate     0       0       0        0        0       0       0       0      
+## null          0       0       0        0        0       0       0       0      
+## null_rate     0       0       0        0        0       0       0       0      
+## type          numeric numeric numeric  numeric  numeric numeric numeric numeric
+## min           10.4    4       71.1     52       2.76    1.513   14.5    0      
+## p25           15.425  4       120.825  96.5     3.08    2.58125 16.8925 0      
+## mean          20.0906 6.1875  230.7219 146.6875 3.5966  3.2172  17.8487 0.4375 
+## median        19.2    6       196.3    123      3.695   3.325   17.71   0      
+## p75           22.8    8       326      180      3.92    3.61    18.9    1      
+## max           33.9    8       472      335      4.93    5.424   22.9    1      
+## sd            6.0269  1.7859  123.9387 68.5629  0.5347  0.9785  1.7869  0.504  
+## kurtosis      2.7995  1.319   1.9103   3.0522   2.4351  3.1725  3.5538  1.0635 
+## skewness      0.6404  -0.1831 0.4003   0.7614   0.2789  0.4438  0.387   0.252  
+## jarque_pvalue 0.3261  0.139   0.2956   0.2127   0.657   0.5798  0.5467  0.0693 
+##               am      gear    carb   
+## count         32      32      32     
+## unique        2       3       6      
+## duplicate     0       0       0      
+## null          0       0       0      
+## null_rate     0       0       0      
+## type          numeric numeric numeric
+## min           0       3       1      
+## p25           0       3       2      
+## mean          0.4062  3.6875  2.8125 
+## median        0       4       2      
+## p75           1       4       4      
+## max           1       5       8      
+## sd            0.499   0.7378  1.6152 
+## kurtosis      1.1457  2.0568  4.5361 
+## skewness      0.3818  0.5546  1.1021 
+## jarque_pvalue 0.0685  0.2433  0.0081</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">desc_stat</span>(airquality)</span></code></pre></div>
 <pre><code>## Descriptive Statistics Results:
 ## =========================================================================
-##         count unique duplicate null null_rate          type    min p25   
-## Ozone   116   68     0         37   0.241830065359477  integer 1   18    
-## Solar.R 146   118    0         7    0.0457516339869281 integer 7   115.75
-## Wind    153   31     0         0    0                  numeric 1.7 7.4   
-## Temp    153   40     0         0    0                  integer 56  72    
-## Month   153   5      0         0    0                  integer 5   6     
-## Day     153   31     0         0    0                  integer 1   8     
-##         mean             median p75    max  sd               kurtosis        
-## Ozone   42.1293103448276 31.5   63.25  168  &lt;NA&gt;             &lt;NA&gt;            
-## Solar.R 185.931506849315 205    258.75 334  &lt;NA&gt;             &lt;NA&gt;            
-## Wind    9.95751633986928 9.7    11.5   20.7 3.52300135221259 3.06884925703895
-## Temp    77.8823529411765 79     85     97   9.46526974097145 2.57059992882931
-## Month   6.99346405228758 7      8      9    1.41652248401231 1.7054744443676 
-## Day     15.8039215686275 16     23     31   8.86452036842542 1.80102527298394
-##         skewness             jarque_pvalue      
-## Ozone   &lt;NA&gt;                 &lt;NA&gt;               
-## Solar.R &lt;NA&gt;                 &lt;NA&gt;               
-## Wind    0.344398467389004    0.217101382908231  
-## Temp    -0.374169579036141   0.0932228902183903 
-## Month   -0.00236798787265809 0.00478785601334408
-## Day     0.00262578344339862  0.0102318699977736</code></pre>
+##               Ozone             Solar.R            Wind    Temp    Month  
+## count         116               146                153     153     153    
+## unique        68                118                31      40      5      
+## duplicate     0                 0                  0       0       0      
+## null          37                7                  0       0       0      
+## null_rate     0.241830065359477 0.0457516339869281 0       0       0      
+## type          integer           integer            numeric integer integer
+## min           1                 7                  1.7     56      5      
+## p25           18                115.75             7.4     72      6      
+## mean          42.1293           185.9315           9.9575  77.8824 6.9935 
+## median        31.5              205                9.7     79      7      
+## p75           63.25             258.75             11.5    85      8      
+## max           168               334                20.7    97      9      
+## sd            &lt;NA&gt;              &lt;NA&gt;               3.523   9.4653  1.4165 
+## kurtosis      &lt;NA&gt;              &lt;NA&gt;               3.0688  2.5706  1.7055 
+## skewness      &lt;NA&gt;              &lt;NA&gt;               0.3444  -0.3742 -0.0024
+## jarque_pvalue &lt;NA&gt;              &lt;NA&gt;               0.2171  0.0932  0.0048 
+##               Day    
+## count         153    
+## unique        31     
+## duplicate     0      
+## null          0      
+## null_rate     0      
+## type          integer
+## min           1      
+## p25           8      
+## mean          15.8039
+## median        16     
+## p75           23     
+## max           31     
+## sd            8.8645 
+## kurtosis      1.801  
+## skewness      0.0026 
+## jarque_pvalue 0.0102</code></pre>
 <p>These metrics provide valuable insights into the dataset in a deep
 level. If you don’t want any of these metrics to be computed, you can
 set them to <code>FALSE</code>. This way, the unwanted metrics won’t
@@ -545,30 +555,34 @@ for mtcar dataset:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">desc_stat</span>(mtcars,<span class="at">kurtosis =</span> F,<span class="at">skewness =</span> F,<span class="at">jarque_test =</span> F)</span></code></pre></div>
 <pre><code>## Descriptive Statistics Results:
 ## =========================================================================
-##      count unique duplicate null null_rate type    min   p25     mean      
-## mpg  32    25     0         0    0         numeric 10.4  15.425  20.090625 
-## cyl  32    3      0         0    0         numeric 4     4       6.1875    
-## disp 32    27     0         0    0         numeric 71.1  120.825 230.721875
-## hp   32    22     0         0    0         numeric 52    96.5    146.6875  
-## drat 32    22     0         0    0         numeric 2.76  3.08    3.5965625 
-## wt   32    29     0         0    0         numeric 1.513 2.58125 3.21725   
-## qsec 32    30     0         0    0         numeric 14.5  16.8925 17.84875  
-## vs   32    2      0         0    0         numeric 0     0       0.4375    
-## am   32    2      0         0    0         numeric 0     0       0.40625   
-## gear 32    3      0         0    0         numeric 3     3       3.6875    
-## carb 32    6      0         0    0         numeric 1     2       2.8125    
-##      median p75  max   sd               
-## mpg  19.2   22.8 33.9  6.0269480520891  
-## cyl  6      8    8     1.78592164694654 
-## disp 196.3  326  472   123.938693831382 
-## hp   123    180  335   68.5628684893206 
-## drat 3.695  3.92 4.93  0.534678736070971
-## wt   3.325  3.61 5.424 0.978457442989697
-## qsec 17.71  18.9 22.9  1.78694323609684 
-## vs   0      1    1     0.504016128774185
-## am   0      1    1     0.498990917235846
-## gear 4      4    5     0.737804065256947
-## carb 2      4    8     1.61519997763185</code></pre>
+##           mpg     cyl     disp     hp       drat    wt      qsec    vs     
+## count     32      32      32       32       32      32      32      32     
+## unique    25      3       27       22       22      29      30      2      
+## duplicate 0       0       0        0        0       0       0       0      
+## null      0       0       0        0        0       0       0       0      
+## null_rate 0       0       0        0        0       0       0       0      
+## type      numeric numeric numeric  numeric  numeric numeric numeric numeric
+## min       10.4    4       71.1     52       2.76    1.513   14.5    0      
+## p25       15.425  4       120.825  96.5     3.08    2.58125 16.8925 0      
+## mean      20.0906 6.1875  230.7219 146.6875 3.5966  3.2172  17.8487 0.4375 
+## median    19.2    6       196.3    123      3.695   3.325   17.71   0      
+## p75       22.8    8       326      180      3.92    3.61    18.9    1      
+## max       33.9    8       472      335      4.93    5.424   22.9    1      
+## sd        6.0269  1.7859  123.9387 68.5629  0.5347  0.9785  1.7869  0.504  
+##           am      gear    carb   
+## count     32      32      32     
+## unique    2       3       6      
+## duplicate 0       0       0      
+## null      0       0       0      
+## null_rate 0       0       0      
+## type      numeric numeric numeric
+## min       0       3       1      
+## p25       0       3       2      
+## mean      0.4062  3.6875  2.8125 
+## median    0       4       2      
+## p75       1       4       4      
+## max       1       5       8      
+## sd        0.499   0.7378  1.6152</code></pre>
 </div>
 <div id="data-visualization" class="section level2">
 <h2>Data Visualization</h2>
