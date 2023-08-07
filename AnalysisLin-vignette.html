@@ -512,40 +512,23 @@ matching a normal distribution.</li>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">desc_stat</span>(airquality)</span></code></pre></div>
 <pre><code>## Descriptive Statistics Results:
 ## =========================================================================
-##               Ozone             Solar.R            Wind    Temp    Month  
-## count         116               146                153     153     153    
-## unique        68                118                31      40      5      
-## duplicate     0                 0                  0       0       0      
-## null          37                7                  0       0       0      
-## null_rate     0.241830065359477 0.0457516339869281 0       0       0      
-## type          integer           integer            numeric integer integer
-## min           1                 7                  1.7     56      5      
-## p25           18                115.75             7.4     72      6      
-## mean          42.1293           185.9315           9.9575  77.8824 6.9935 
-## median        31.5              205                9.7     79      7      
-## p75           63.25             258.75             11.5    85      8      
-## max           168               334                20.7    97      9      
-## sd            &lt;NA&gt;              &lt;NA&gt;               3.523   9.4653  1.4165 
-## kurtosis      &lt;NA&gt;              &lt;NA&gt;               3.0688  2.5706  1.7055 
-## skewness      &lt;NA&gt;              &lt;NA&gt;               0.3444  -0.3742 -0.0024
-## jarque_pvalue &lt;NA&gt;              &lt;NA&gt;               0.2171  0.0932  0.0048 
-##               Day    
-## count         153    
-## unique        31     
-## duplicate     0      
-## null          0      
-## null_rate     0      
-## type          integer
-## min           1      
-## p25           8      
-## mean          15.8039
-## median        16     
-## p75           23     
-## max           31     
-## sd            8.8645 
-## kurtosis      1.801  
-## skewness      0.0026 
-## jarque_pvalue 0.0102</code></pre>
+##               Ozone   Solar.R  Wind    Temp    Month   Day    
+## count         116     146      153     153     153     153    
+## unique        68      118      31      40      5       31     
+## duplicate     0       0        0       0       0       0      
+## null          37      7        0       0       0       0      
+## null_rate     0.2418  0.0458   0       0       0       0      
+## type          integer integer  numeric integer integer integer
+## min           1       7        1.7     56      5       1      
+## p25           18      115.75   7.4     72      6       8      
+## mean          42.1293 185.9315 9.9575  77.8824 6.9935  15.8039
+## median        31.5    205      9.7     79      7       16     
+## p75           63.25   258.75   11.5    85      8       23     
+## max           168     334      20.7    97      9       31     
+## sd            &lt;NA&gt;    &lt;NA&gt;     3.523   9.4653  1.4165  8.8645 
+## kurtosis      &lt;NA&gt;    &lt;NA&gt;     3.0688  2.5706  1.7055  1.801  
+## skewness      &lt;NA&gt;    &lt;NA&gt;     0.3444  -0.3742 -0.0024 0.0026 
+## jarque_pvalue &lt;NA&gt;    &lt;NA&gt;     0.2171  0.0932  0.0048  0.0102</code></pre>
 <p>These metrics provide valuable insights into the dataset in a deep
 level. If you don’t want any of these metrics to be computed, you can
 set them to <code>FALSE</code>. This way, the unwanted metrics won’t
