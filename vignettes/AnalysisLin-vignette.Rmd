@@ -78,11 +78,11 @@ First function in package is desc_stat. This function computes numerous useful s
 - **Jarque-Bera Test P-value**: Checks whether data have the skewness and kurtosis matching a normal distribution.
 
 ```{r,eval=TRUE}
-desc_stat(iris)
+desc_stat(mtcars)
 ```
 
 ```{r,eval=TRUE}
-desc_stat(mtcars)
+desc_stat(iris)
 ```
 
 ```{r,eval=TRUE}
@@ -93,17 +93,17 @@ desc_stat(airquality)
 
 These metrics provide valuable insights into the dataset in a deep level. If you don't want any of these metrics to be computed, you can set them to `FALSE`. This way, the unwanted metrics won't appear in the output.
 
-For example, if you don't want kurtosis,skewness and jarque_pvalue for mtcar dataset:
+Furthermore, desc_stat() can also compute Kurtosis, Skewness, Shapiro-Wilk Test, Anderson-Darling Test, Lilliefors Test,Jarque-Bera Test
 ```{r,eval=TRUE}
-desc_stat(mtcars,kurtosis = F,skewness = F,jarque = F)
+desc_stat(mtcars,max = F, min=F, sd=F,kurtosis = T,skewness = T,shapiro = T,anderson = T,lilliefors = T, jarque = T)
 ```
 ## Data Visualization
 ### Numeric Plot 
 To visualize histogram for all numerical variables
 ```{r,eval=TRUE}
-hist_plot(iris,subplot=T,nrow=2)
+hist_plot(iris,subplot=F)
 ```
-To visualize desnity for all numerical variables
+To visualize desnity for all numerical variables in two rows of subplots
 ```{r,eval=TRUE}
 dens_plot(iris,subplot=T,nrow=2)
 ```
@@ -111,9 +111,8 @@ dens_plot(iris,subplot=T,nrow=2)
 A Quantile-Quantile (QQ) plot is a graphical tool used to assess whether a dataset follows a normal distribution. It compares the quantiles of the observed data to the quantiles of the expected distribution.
 
 if you want to check the normality for numerical variables by drawing QQ plot.
-
 ```{r,eval=TRUE}
-qq_plot(iris)
+qq_plot(iris,subplot = T)
 ```
 
 ### Categorical Plot 
@@ -123,7 +122,6 @@ bar_plot(iris)
 ```
 
 if you want pie chart:
-
 ```{r,eval=TRUE}
 pie_plot(iris)
 ```
@@ -194,11 +192,9 @@ impute_missing(airquality,method='knn',k=5)
 ### Principle Component Analysis
 Principle Component Analysis can help you to reduce the number of variables in a dataset.
 To perform and visualize PCA on some selected variables
-
 ```{r,eval=TRUE}
 pca(mtcars,variance_threshold = 0.9,scale=T)
 ```
-
 to visualize the scree plot and biplot 
 ```{r,eval=TRUE}
 pca(mtcars,variance_threshold = 0.9,scale=TRUE,scree_plot=TRUE,biplot=TRUE)
