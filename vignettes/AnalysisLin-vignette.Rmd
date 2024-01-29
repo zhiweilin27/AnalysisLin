@@ -101,7 +101,7 @@ desc_stat(mtcars,max = F, min=F, sd=F,kurtosis = T,skewness = T,shapiro = T,ande
 ### Numeric Plot 
 To visualize histogram for all numerical variables
 ```{r,eval=TRUE}
-hist_plot(iris,subplot=F)
+hist_plot(iris,subplot=F,html=T)
 ```
 To visualize desnity for all numerical variables in two rows of subplots
 ```{r,eval=TRUE}
@@ -118,12 +118,12 @@ qq_plot(iris,subplot = T)
 ### Categorical Plot 
 To visualize bar charts for all categorical variables
 ```{r,eval=TRUE}
-bar_plot(iris)
+bar_plot(iris,html=T)
 ```
 
 if you want pie chart:
 ```{r,eval=TRUE}
-pie_plot(iris)
+pie_plot(iris,html=T)
 ```
 
 
@@ -160,7 +160,7 @@ corr_cluster(mtcars, type='spearman')
 To visualize the percentage of missing values in each variable.
 
 ```{r,eval=TRUE}
-missing_values_plot(airquality)
+missing_values_plot(airquality,html=T)
 ```
 
 
@@ -197,6 +197,6 @@ pca(mtcars,variance_threshold = 0.9,scale=T)
 ```
 to visualize the scree plot and biplot 
 ```{r,eval=TRUE}
-pca(mtcars,variance_threshold = 0.9,scale=TRUE,scree_plot=TRUE,biplot=TRUE)
+pca(mtcars,variance_threshold = 0.9,scale=TRUE,scree_plot=TRUE,biplot=TRUE,html=T)
 ```
 
