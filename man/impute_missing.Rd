@@ -7,15 +7,27 @@
 impute_missing(data, method = "mean", k = NULL)
 }
 \arguments{
-\item{data}{input data}
+\item{data}{Input data.}
 
-\item{method}{method of handling missing values: mean, median, mode, locf,knn.}
+\item{method}{Method of handling missing values: "mean," "median," "mode," "locf," or "knn."}
 
-\item{k}{argument used in knn method. k is value of number of neighbors will be checked. Default is Null}
+\item{k}{Value of the number of neighbors to be checked (only for knn method). Default is NULL.}
+}
+\value{
+a data frame with imputed missing values
 }
 \description{
-Missing Value Imputation
+This function performs missing value imputation in the input data using various methods.
+ The available imputation methods are:
+  
+ - "mean": Imputes missing values with the mean of the variable.
+ - "median": Imputes missing values with the median of the variable.
+ - "mode": Imputes missing values with the mode of the variable (for categorical data).
+ - "locf": Imputes missing values using the Last Observation Carried Forward method.
+ - "knn": Imputes missing values using the k-Nearest Neighbors algorithm (specify k).
 }
 \examples{
-impute_missing(data(mtcars), method='mean')
+data(airquality)
+impute_missing(airquality, method='mean')
+
 }

@@ -1,42 +1,67 @@
 #' @title Missing Value Imputation
 #'
-#' @param data input data
-#' @param method method of handling missing values: mean, median, mode, locf,knn.
-#' @param k argument used in knn method. k is value of number of neighbors will be checked. Default is Null
+#' @description
+#'  This function performs missing value imputation in the input data using various methods.
+#'  The available imputation methods are:
+#'   
+#'  - "mean": Imputes missing values with the mean of the variable.
+#'  - "median": Imputes missing values with the median of the variable.
+#'  - "mode": Imputes missing values with the mode of the variable (for categorical data).
+#'  - "locf": Imputes missing values using the Last Observation Carried Forward method.
+#'  - "knn": Imputes missing values using the k-Nearest Neighbors algorithm (specify k).
+#'   
+#' 
+#' @param data Input data.
+#' @param method Method of handling missing values: "mean," "median," "mode," "locf," or "knn."
+#' @param k Value of the number of neighbors to be checked (only for knn method). Default is NULL.
 #'
+#' @return a data frame with imputed missing values 
 #' @export
+#' @importFrom caret preProcess
+#' @import RANN
+#' @examples 
+#' data(airquality)
+#' impute_missing(airquality, method='mean')
 #'
-#' @examples impute_missing(data(mtcars), method='mean')
 impute_missing <- function(data, method = "mean", k = NULL) {
   imputed_data <- data
+  
   if (is.null(k)) {
-    for (col in names(imputed_data)) {
+    imputed_data <- lapply(imputed_data, function(col) {
       if (method == "mean") {
-        imputed_data[[col]] <- ifelse(is.na(imputed_data[[col]]), mean(imputed_data[[col]], na.rm = TRUE), imputed_data[[col]])
+        col[is.na(col)] <- mean(col, na.rm = TRUE)
       } else if (method == "median") {
-        imputed_data[[col]] <- ifelse(is.na(imputed_data[[col]]), median(imputed_data[[col]], na.rm = TRUE), imputed_data[[col]])
+        col[is.na(col)] <- median(col, na.rm = TRUE)
       } else if (method == "mode") {
-        imputed_data[[col]] <- ifelse(is.na(imputed_data[[col]]), impute_mode(imputed_data[[col]]), imputed_data[[col]])
+        col[is.na(col)] <- impute_mode(col)
       } else if (method == "locf") {
-        imputed_data[[col]] <- impute_locf(imputed_data[[col]])
+        col <- impute_locf(col)
       }
-    }
+      return(col)
+    })
   } else if (method == "knn" && !is.null(k)) {
     imputed_data <- impute_knn(imputed_data, k)
   } else {
     stop("Invalid imputation method. Supported methods are: mean, median, mode, locf, knn")
   }
-
+  
   return(as.data.frame(imputed_data))
 }
 
 
 impute_locf <- function(x) {
-  if(!require(zoo)){
-    install.packages('zoo')
-    library(zoo)
+  imputed_values <- x
+  lo <- NA
+  
+  for (i in 1:length(x)) {
+    if (is.na(x[i])) {
+      if (!is.na(lo)) {
+        imputed_values[i] <- lo
+      }
+    } else {
+      lo <- x[i]
+    }
   }
-  imputed_values <- na.locf(x, na.rm = FALSE)
   return(imputed_values)
 }
 
@@ -47,15 +72,8 @@ impute_mode <- function(x) {
 }
 
 impute_knn <- function(data, k) {
-  if (!require(caret)) {
-    install.packages('caret')
-    library(caret)
-  }
-  if (!require(RANN)) {
-    install.packages('RANN')
-    library(RANN)
-  }
-  imputed_values <- preProcess(data, method = 'knnImpute', k = k)
+
+  imputed_values <- caret::preProcess(data, method = 'knnImpute', k = k)
   imputed_data <- predict(imputed_values, data)
   
   procNames <- data.frame(col = names(imputed_values$mean), mean = imputed_values$mean, sd = imputed_values$std)

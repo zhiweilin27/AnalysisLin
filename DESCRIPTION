@@ -1,10 +1,9 @@
 Package: AnalysisLin
 Type: Package
-Title: Package for Exploratory Data Analysis
+Title:Exploratory Data Analysis
 Version: 0.1.0
-Author: Zhiwei Lin
-Maintainer: The package maintainer <zhiweilin27@gmail.com>
-Description: It's a package that helps you to perform different tasks throughout your data exploration process.
+Authors@R:person("Zhiwei","Lin", ,"zhiweilin27@gmail.com",role = c("aut", "cre"))
+Description: A quick and effective data exploration toolkit. It provides essential features, including a descriptive statistics table for a quick overview of your dataset, interactive distribution plots to visualize variable patterns, Principal Component Analysis for dimensionality reduction and feature analysis, missing value imputation methods, and correlation analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -13,3 +12,15 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Date: 2024-01-22
+Imports:
+    Hmisc,
+    ggplot2,
+    plotly,
+    stats,
+    caret,
+    htmltools,
+    DT,
+    magrittr,
+    RANN
+

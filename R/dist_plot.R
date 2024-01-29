@@ -1,77 +1,266 @@
-#' @title Numerical Variables Distribution
+#' @title Histogram Plot for Numerical Variables
+#' @description
+#' This function generates histogram plots for all numerical variables in the input data frame.
+#' It offers a vivid and effective visual summary of the distribution of each numerical variable,
+#' helping in a quick understanding of their central tendency, spread, and shape.
 #'
-#' @param data input data
-#' @param hist a logical argument(default TRUE) that determines if histogram is generated
-#' @param prob a logical argument(default FALSE) that determines it is a probability histogram or relative frequency histogram.
-#' @param dens a logical argument(default FALSE) that determine if density line is generated
-#' @return a list of plots
+#' @param data The input data frame containing numerical variables.
+#' @param fill The fill color for the histogram bars (default: "skyblue").
+#' @param color The border color for the histogram bars (default: "black").
+#' @param alpha The alpha (transparency) value for the histogram bars (default: 0.7).
+#' @param subplot A logical argument (default: FALSE) indicating whether to create subplots for each variable.
+#' @param nrow Number of rows for subplots (used when subplot is TRUE, default: 2).
+#' @param margin Margin for subplots (used when subplot is TRUE, default: 0.1).
+#'
+#' @return A list of histogram plot.
+#'
+#' @examples
+#' hist_plot(data = mtcars, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE)
+#' @importFrom htmltools tagList 
+#' @import ggplot2
+#' @import stats
+#' @import magrittr
+#' @importFrom plotly ggplotly
+#' @importFrom plotly style
+#' @importFrom plotly layout
 #' @export
-#'
-#' @examples numeric_plot(data(mtcars),prob=T,dens=T)
-numeric_plot <- function(data,hist=TRUE,prob=FALSE,dens=FALSE) {
+hist_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
   numerical <- names(Filter(is.numeric, data))
   if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
-  plots <- list() 
-  for (i in 1:length(numerical)) {
-    if (hist){
-      hist(data[[numerical[i]]], prob=prob, main = paste(numerical[i], "Distribution"), xlab = NULL, ylab = "Frequency")
-    }
-    if(dens){
-      lines(density(data[[numerical[i]]]), col = "red", lwd = 2)
-    }
+  
+  gg_list <- lapply(numerical, function(var) {
+    binwidth <- density(data[[var]], bw = "SJ")$bw
+    
+    plot <- ggplot2::ggplot(data, aes(x = !!sym(var))) + 
+      geom_histogram(binwidth = binwidth, fill = fill, color = color, alpha = alpha) +
+      labs(title = paste(var, "Distribution"), y = "Frequency") +
+      theme_minimal()
+    
+    ggplotly(plot, tooltip = "all", dynamicTicks = TRUE) %>% style(hoverinfo = "text") 
+  })
+  gg_list <- do.call(htmltools::tagList, gg_list)
+  
+  if (subplot) {
+    fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
+      style(hoverinfo = "text") %>%
+      layout(title = list(text = "Distribution Histgram"))
+  } else {
+    fig <- gg_list
   }
-  return(plots)
+  
+  return(fig)
 }
 
-#' @title Categorical Variables Plots
+
+#' @title Numerical Variables Density Plots
+#' @description
+#' This function generates density plots for all numerical variables in the input data frame.
+#' It offers a vivid and effective visual summary of the distribution of each numerical variable,
+#' helping in a quick understanding of their central tendency, spread, and shape.
+#' 
+#' @param data The input data frame containing numerical variables.
+#' @param fill The fill color of the density plot (default: "skyblue").
+#' @param color The line color of the density plot (default: "black").
+#' @param alpha The transparency of the density plot (default: 0.7).
+#' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
+#' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
+#' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
 #'
-#' @param data input data
-#' @param pie a logical argument(default TRUE) that determines if pie plot is generated
-#' @param pie_legend a logical argument(default TRUE) that determines if a legend of pie is generated
-#' @param pie_legend_size an argument(default is 0.5) that determines size of the legend
-#' @param pie_legend_position an argument(dafult is bottom) that determines the position of the legend
-#' @param bar a logical argument(default TRUE) that determines if bar plot is generated
-#' @param bar_legend a logical argument(default TRUE) that determines if a legend of bar is generated
-#' @param bar_legend_size an argument(default is 0.5) that determines size of the legend
-#' @param bar_legend_position an argument(dafult is bottom) that determines the position of the legend
-#' @param n_col an argument that determine how many plot being put on the same rows
-#' @param bar_width width of bar plot
-#' @param bar_height height of bar plot
-#' @return a list of pie charts
+#' @return A list of density plots.
+#'
+#' @examples
+#' data(mtcars)
+#' dens_plot(mtcars)
+#'
+#' @import ggplot2
+#' @importFrom htmltools tagList
+#' @import stats
+#' @importFrom plotly ggplotly
+#' @importFrom plotly style
+#' @importFrom plotly layout
 #' @export
+dens_plot <- function(data, fill = "skyblue", color = "black", alpha = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
+  numerical <- names(Filter(is.numeric, data))
+  if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
+  
+  gg_list <- lapply(numerical, function(var){
+    plot <- ggplot(data, aes_string(x = var)) + 
+      geom_density(fill = fill, color = color, alpha = alpha) +
+      labs(title = paste(var, "Density Plot"), y = "Density") +
+      theme_minimal()
+    
+    ggplotly(plot, tooltip = "all", dynamicTicks = TRUE) %>%
+      plotly::style(hoverinfo = "text") 
+  })
+  
+  gg_list <- do.call(htmltools::tagList, gg_list)
+  
+  if (subplot) {
+    fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
+      plotly::style(hoverinfo = "text") %>%
+      plotly::layout(title = list(text = "Density Plots"))
+  } else {
+    fig <- gg_list
+  }
+  return(fig)
+}
+
+
+
+#' @title QQ Plots for Numerical Variables
+#' @description
+#' This function generates QQ plots for all numerical variables in the input data frame.
+#' QQ plots are valuable for assessing the distributional similarity between observed data
+#' and a theoretical normal distribution. It acts as a guide, revealing deviations from the 
+#' expected norm, outliers, and the contours of distribution tails.
 #'
-#' @examples categoric_plot(data(mtcars))
-categoric_plot <- function(data, pie=TRUE, pie_legend=TRUE, pie_legend_size=0.5, pie_legend_position='bottom', pie_inset=c(0, -0.15),
-                           bar=TRUE, bar_legend=TRUE, bar_legend_size=0.5, bar_legend_position='bottom', bar_inset=c(0, -0.4),
-                           n_col=1, bar_width = 0.8, bar_height = NULL) {
+#' @param data The input data frame containing numerical variables.
+#' @param color The color of the QQ plot line (default: "skyblue").
+#' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
+#' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
+#' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
+#'
+#' @return A list of QQ plots.
+#'
+#' @examples
+#' data(mtcars)
+#' qq_plot(mtcars)
+#'
+#' @import ggplot2
+#' @import htmltools
+#' @import stats
+#' @importFrom plotly ggplotly
+#' @importFrom plotly style
+#' @importFrom plotly layout
+#' @export
+qq_plot <- function(data, color = "skyblue", subplot = FALSE, nrow = 2, margin = 0.1) {
+  numerical <- names(Filter(is.numeric, data))
+  if (length(numerical) == 0) stop("There is no numerical variable in the dataset")
+  
+  gg_list <- lapply(numerical, function(var) {
+    plot <- ggplot(data, aes(sample = !!sym(var))) + 
+      geom_qq() +
+      geom_qq_line(color = color) +
+      labs(title = paste(var, "QQ Plot"), subtitle = "Normal QQ Plot") +
+      theme_minimal() 
+    
+    ggplotly(plot, tooltip = "all", dynamicTicks = TRUE) %>%
+      plotly::style(hoverinfo = "text") %>%
+      plotly::layout(title = list(text = paste(var, "QQ Plot")))
+  })
+  
+  gg_list <- do.call(htmltools::tagList, gg_list)
+  
+  if (subplot) {
+    fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
+      plotly::style(hoverinfo = "text") %>%
+      plotly::layout(title = list(text = ""))
+  } else {
+    fig <- gg_list
+  }
+  
+  return(fig)
+}
+
+
+
+#' @title Bar Plots for Categorical Variables
+#' @description
+#' This function generates bar plots for all categorical variables in the input data frame.
+#' Bar plots offer a visual representation of the distribution of categorical variables,
+#' making it easy to understand the frequency of each category. They are particularly
+#' useful for exploring patterns, identifying dominant categories, and comparing the relative
+#' frequencies of different levels within each variable. 
+#'
+#' @param data The input data frame containing categorical variables.
+#' @param fill Fill color for the bars (default: "skyblue").
+#' @param color Border color of the bars (default: "black").
+#' @param width Width of the bars (default: 0.7).
+#' @param subplot A logical argument (default: FALSE) indicating whether to create subplots.
+#' @param nrow Number of rows for subplots (if subplot is TRUE, default: 2).
+#' @param margin Margin for subplots (if subplot is TRUE, default: 0.1).
+#'
+#' @return A list of bar plots.
+#'
+#' @examples
+#' data(iris)
+#' bar_plot(iris)
+#'
+#' @import ggplot2
+#' @import htmltools
+#' @import stats
+#' @importFrom plotly ggplotly
+#' @importFrom plotly style
+#' @importFrom plotly layout
+#' @export
+bar_plot <- function(data, fill = "skyblue", color = "black", width = 0.7, subplot = FALSE, nrow = 2, margin = 0.1) {
+  categories = frequencies = NULL
   categorical <- names(Filter(function(x) is.factor(x) || is.character(x), data))
   if (length(categorical) == 0) stop("There is no categorical variable in the dataset")
-
-  for (i in 1:length(categorical)) {
-    table_data <- table(data[[categorical[i]]]) # Calculate the frequencies
-    par(mfrow = c(1, n_col))
-    if (pie){
-      pie_data <- table_data / sum(table_data)
-      colors <- rainbow(length(table_data))
-      pie(pie_data, main = paste(categorical[i], "Pie"), col = colors)
-      labels <- paste0(names(table_data), " (", round(100 * pie_data, 1), "%)")
-      if (pie_legend) {
-        legend(pie_legend_position, legend = labels, cex = pie_legend_size, horiz=T, fill = colors, xpd = TRUE, inset = pie_inset)
-      }
-    }
-
-    if (bar){
-      bar_colors <- rainbow(length(table_data))
-      if (is.null(bar_height)) {
-        barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors, width = bar_width)
-      } else {
-        barplot(table_data, main = paste(categorical[i], "Bar Plot"), xlab = "Frequency", ylab = categorical[i], horiz = TRUE, col = bar_colors, width = bar_width, height = bar_height)
-      }
-      if (bar_legend) {
-        legend(bar_legend_position, legend = names(table_data), horiz=T,fill = bar_colors, xpd = TRUE, inset = bar_inset)
-      }
-    }
+  
+  gg_list <- lapply(categorical, function(cat) {
+    table_data <- table(data[[cat]])
+    bar_df <- data.frame(categories = names(table_data), frequencies = as.numeric(table_data))
+    
+    plot <- ggplot2::ggplot(bar_df, aes(x = frequencies, y = reorder(categories, frequencies))) +
+      geom_bar(stat = "identity", color = color, width = width, fill = fill) +
+      labs(title = paste(cat, "Bar Plot"), x = "Frequency", y = cat) +
+      theme_minimal()
+    
+    ggplotly(plot) %>%
+      plotly::style(hoverinfo = "text") %>%
+      plotly::layout(title = list(text = paste(cat, "Bar Plot")))
+  })
+  
+  gg_list <- do.call(htmltools::tagList, gg_list)
+  
+  if (subplot) {
+    fig <- plotly::subplot(gg_list, nrows = nrow, titleX = TRUE, titleY = FALSE, margin = margin) %>%
+      plotly::style(hoverinfo = "text") %>%
+      plotly::layout(title = list(text = ""))
+    return(fig)
+  } else {
+    return(gg_list)
   }
+}
+
+
+#' @title Pie Plots for Categorical Variables
+#' @description
+#' This function generates pie charts for categorical variables in the input data frame using plotly.
+#' Pie plots offer a visual representation of the distribution of categorical variables,
+#' making it easy to understand the frequency of each category. They are particularly
+#' useful for exploring patterns, identifying dominant categories, and comparing the relative
+#' frequencies of different levels within each variable. 
+#' 
+#' @param data The input data frame containing categorical variables.
+#'
+#' @return A list of pie charts.
+#'
+#' @examples
+#' data(iris)
+#' pie_plot(iris)
+#' @import htmltools
+#' @import stats
+#' @importFrom plotly plot_ly
+#' @importFrom plotly layout
+#' @export
+pie_plot <- function(data) {
+  categorical <- names(Filter(function(x) is.factor(x) || is.character(x), data))
+  if (length(categorical) == 0) stop("There is no categorical variable in the dataset")
+  
+  gg_list <- lapply(categorical, function(cat) {
+    table_data <- table(data[[cat]])
+    pie_df <- data.frame(categories = names(table_data), frequencies = as.numeric(table_data))
+    
+    plot_ly(pie_df, labels = ~categories, values = ~frequencies, type = 'pie',
+            marker = list(line = list(color = '#FFFFFF', width = 1)),
+            textinfo = 'label+percent') %>%
+      layout(title = paste(cat, "Pie Chart"))
+    
+  })
+  gg_list <- do.call(htmltools::tagList,gg_list)
+  return(gg_list)
 }
 
 

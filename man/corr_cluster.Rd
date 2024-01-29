@@ -2,25 +2,28 @@
 % Please edit documentation in R/corr_cluster.R
 \name{corr_cluster}
 \alias{corr_cluster}
-\title{Correlation Cluster}
+\title{Correlation Clustering}
 \usage{
-corr_cluster(data, label = NULL, type = "pearson", method = "complete")
+corr_cluster(data, type = "pearson", method = "complete", hclust_method = NULL)
 }
 \arguments{
-\item{data}{input dataset}
+\item{data}{Input data frame.}
 
-\item{label}{label or name for the dataset, optional.}
+\item{type}{The type of correlation to be computed. It can be "pearson", "kendall", or "spearman".}
 
-\item{type}{pearson or spearman correlation, default is pearson}
+\item{method}{The method for hierarchical clustering. It can be "complete", "single", "average", "ward.D", "ward.D2", "mcquitty", "median", or "centroid".}
 
-\item{method}{the agglomeration method to be used. This should be (an unambiguous abbreviation of) one of "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (= UPGMC). Dafault is complete}
+\item{hclust_method}{The hierarchical clustering method. It can be "complete", "single", "average", "ward.D", "ward.D2", "mcquitty", "median", or "centroid".}
 }
 \value{
-A plot of dendrogram
+A dendrogram visualizing the hierarchical clustering of variables based on the correlation matrix.
 }
 \description{
-corr_cluster performs hierarchical clustering based on the corrleation distance, and generates a dendrogram.
+This function performs hierarchical clustering on a correlation matrix, providing insights into the relationships between variables.
+  It generates a dendrogram visualizing the hierarchical clustering of variables based on their correlation patterns.
 }
 \examples{
-corr_cluster(data(mtcars),type='pearson',method='complete')
+data(mtcars)
+corr_cluster(data = mtcars, type = 'pearson', method = 'complete')
+
 }

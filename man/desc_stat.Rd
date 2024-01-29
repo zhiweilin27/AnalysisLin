@@ -19,9 +19,13 @@ desc_stat(
   p75 = TRUE,
   max = TRUE,
   sd = TRUE,
-  kurtosis = TRUE,
-  skewness = TRUE,
-  jarque_test = TRUE
+  skewness = FALSE,
+  kurtosis = FALSE,
+  shapiro = FALSE,
+  kolmogorov = FALSE,
+  anderson = FALSE,
+  lilliefors = FALSE,
+  jarque = FALSE
 )
 }
 \arguments{
@@ -53,11 +57,19 @@ desc_stat(
 
 \item{sd}{An logical argument(default TRUE) that determines if sd is included in the output}
 
-\item{kurtosis}{An logical argument(default TRUE) that determines if kurtosis is included in the output}
+\item{skewness}{An logical argument(default FALSE) that determines if skewness is included in the output}
 
-\item{skewness}{An logical argument(default TRUE) that determines if skewness is included in the output}
+\item{kurtosis}{An logical argument(default FALSE) that determines if kurtosis is included in the output}
 
-\item{jarque_test}{An logical argument(default TRUE) that determines if jarque_pvalue is included in the output}
+\item{shapiro}{An logical argument(default FALSE) that determines if shapiro p-value is included in the output}
+
+\item{kolmogorov}{An logical argument(default FALSE) that determines if kolmogorov p-value is included in the output}
+
+\item{anderson}{An logical argument(default FALSE) that determines if anderson p-value is included in the output}
+
+\item{lilliefors}{An logical argument(default FALSE) that determines if lilliefors p-value is included in the output}
+
+\item{jarque}{An logical argument(default FALSE) that determines if jarque p-value is included in the output}
 }
 \value{
 A data frame which summarizes the characteristics of a data set
@@ -69,5 +81,6 @@ duplicate count, number of missing values, null rate, data type, minimum value, 
 mean, median, 75th percentile, maximum value, standard deviation, kurtosis, skewness, and jarque_pvalue for each variable.
 }
 \examples{
-desc_stat(data(mtcars))
+data(mtcars)
+desc_stat(mtcars)
 }

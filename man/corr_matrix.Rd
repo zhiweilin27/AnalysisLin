@@ -7,50 +7,41 @@
 corr_matrix(
   data,
   type = "pearson",
-  decreasing = TRUE,
-  corrplot = FALSE,
-  order = "hclust",
+  corr_plot = FALSE,
   sig.level = 0.01,
-  addCoef.col = NULL,
-  number.cex = NULL
+  highlight = FALSE
 )
 }
 \arguments{
-\item{data}{input dataset}
+\item{data}{Input dataset.}
 
-\item{type}{pearson or spearman correlation, default is pearson}
+\item{type}{Pearson or Spearman correlation, default is Pearson.}
 
-\item{decreasing}{sort the data frame by absolute correlation values, default is sorted by decreasing value}
+\item{corr_plot}{Generate a correlation matrix plot, default is false.}
 
-\item{corrplot}{generate a correlation matrix plot, default is true}
+\item{sig.level}{Significant level. Default is 0.01.}
 
-\item{order}{Character, the ordering method of the correlation matrix.
-'hclust' for the hierarchical clustering order (default).         
-'original' for the original order.       
-'AOE' for the angular order of the eigenvectors.   
-'FPC' for the first principal component order.    
-'alphabet' for alphabetical order.}
-
-\item{sig.level}{Significant level. default is 0.01. If correlation p-value is less than 0.01, wipe away the corresponding glyph.}
-
-\item{addCoef.col}{Color of coefficients added on the graph, if NULL(dafult), add no coefficients}
-
-\item{number.cex}{Size of the coefficents values}
+\item{highlight}{Highlight p-value(s) that is less than sig.level, default is FALSE}
 }
 \value{
-a data frame which contain rows names, column names, correlation coefficients, and p-values
+A data frame which contains row names, column names, correlation coefficients, and p-values.
 
-a plot of correlation if corrplot is set to be true
+A plot of the correlation if corrplot is set to be true.
 }
 \description{
-Column 1: row names (variable 1 for the correlation test).   
+Column 1: Row names representing Variable 1 in the correlation test.
   
-  Column 2: column names (variable 2 for the correlation test).    
+  Column 2: Column names representing Variable 2 in the correlation test.
   
-  Column 3: the correlation coefficients.    
+  Column 3: The correlation coefficients quantifying the strength and direction of the relationship.
   
-  Column 4: the p-values of the correlations.
+  Column 4: The p-values associated with the correlations, indicating the statistical significance
+            of the observed relationships. Lower p-values suggest stronger evidence against the null hypothesis.
+
+The table provides valuable insights into the relationships between variables, helping to identify
+statistically significant correlations.
 }
 \examples{
-corr_matrix(data(mtcars),type='pearson')
+data(mtcars)
+corr_matrix(mtcars, type = 'pearson')
 }
